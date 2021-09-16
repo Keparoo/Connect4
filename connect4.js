@@ -112,6 +112,7 @@ const handleClick = (evt) => {
 
 	// switch players
 	// TODO: switch currPlayer 1 <-> 2
+	currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1);
 };
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
