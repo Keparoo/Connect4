@@ -118,7 +118,6 @@ const handleClick = (evt) => {
 	// }
 	// if (gameOver) endGame();
 	if (board.every((row) => row.every((square) => square))) {
-		console.log(board);
 		return endGame('Tie!');
 	}
 
