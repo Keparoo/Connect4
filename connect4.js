@@ -115,6 +115,7 @@ const handleClick = (evt) => {
 		if (row[0].every((val) => val !== null)) gameOver = true;
 	}
 	if (gameOver) endGame();
+
 	// switch players
 	// TODO: switch currPlayer 1 <-> 2
 	currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1);
