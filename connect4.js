@@ -18,12 +18,8 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 const makeBoard = () => {
 	// TODO: set "board" to empty HEIGHT x WIDTH matrix array
 	console.log('making board');
-	const newRow = [];
 	for (let row = 0; row < HEIGHT; row++) {
-		for (let column = 0; column < WIDTH; column++) {
-			newRow[column] = null;
-		}
-		board.push(newRow);
+		board.push(Array.from({ WIDTH }));
 	}
 	console.log(board);
 };
@@ -65,7 +61,13 @@ const makeHtmlBoard = () => {
 
 const findSpotForCol = (x) => {
 	// TODO: write the real version of this, rather than always returning 0
-	return 0;
+	for (let row = HEIGHT - 1; row >= 0; row--) {
+		if (!board[row][x]) {
+			console.log('empty row ', row);
+			return row;
+		}
+	}
+	return null;
 };
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -75,33 +77,40 @@ const placeInTable = (y, x) => {
 	const newDiv = document.createElement('div');
 	newDiv.classList.add('piece');
 	currPlayer === 1 ? newDiv.classList.add('p1') : newDiv.classList.add('p2');
-	const square = document.getElementById(y + '-' + x);
-	square.appendChild(newDiv);
-	console.log(square);
+	const square = document.getElementById(`${y}-${x}`);
+	// newDiv.style.top = -50 * (y + 2);
+	square.append(newDiv);
+	console.log(square, board);
 };
 
 /** endGame: announce game end */
 
 const endGame = (msg) => {
 	// TODO: pop up alert message
+	alert(msg);
 };
 
 /** handleClick: handle click of column top to play piece */
 
 const handleClick = (evt) => {
 	// get x from ID of clicked cell
-	let x = +evt.target.id;
+	const x = +evt.target.id;
 
 	// get next spot in column (if none, ignore click)
-	let y = findSpotForCol(x);
+	const y = findSpotForCol(x);
 	if (y === null) {
+		console.log('column full');
 		return;
 	}
 
 	// place piece in board and add to HTML table
 	// TODO: add line to update in-memory board
+
 	placeInTable(y, x);
 	board[y][x] = currPlayer;
+	console.log(y, x, board[x][y], board);
+
+	// board[5][6] += 'test';
 
 	// check for win
 	if (checkForWin()) {
@@ -110,11 +119,11 @@ const handleClick = (evt) => {
 
 	// check for tie
 	// TODO: check if all cells in board are filled; if so call, call endGame
-	let gameOver = false;
-	for (let row = 0; row < HEIGHT; row++) {
-		if (row[0].every((val) => val !== null)) gameOver = true;
-	}
-	if (gameOver) endGame();
+	// let gameOver = false;
+	// for (let row = 0; row < HEIGHT; row++) {
+	// 	if (row[0].every((val) => val !== null)) gameOver = true;
+	// }
+	// if (gameOver) endGame();
 
 	// switch players
 	// TODO: switch currPlayer 1 <-> 2
