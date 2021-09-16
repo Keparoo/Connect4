@@ -17,18 +17,16 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 const makeBoard = () => {
 	// TODO: set "board" to empty HEIGHT x WIDTH matrix array
-	console.log('making board');
 	for (let row = 0; row < HEIGHT; row++) {
-		board.push(Array.from({ WIDTH }));
+		board.push(Array.from({ length: WIDTH }));
 	}
-	console.log(board);
 };
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 const makeHtmlBoard = () => {
 	// TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
-	htmlBoard = document.querySelector('#board');
+	const htmlBoard = document.querySelector('#board');
 	// TODO: add comment for this code
 
 	// Create top row of board to accept click
@@ -63,7 +61,6 @@ const findSpotForCol = (x) => {
 	// TODO: write the real version of this, rather than always returning 0
 	for (let row = HEIGHT - 1; row >= 0; row--) {
 		if (!board[row][x]) {
-			console.log('empty row ', row);
 			return row;
 		}
 	}
@@ -76,11 +73,11 @@ const placeInTable = (y, x) => {
 	// TODO: make a div and insert into correct table cell
 	const newDiv = document.createElement('div');
 	newDiv.classList.add('piece');
-	currPlayer === 1 ? newDiv.classList.add('p1') : newDiv.classList.add('p2');
+	newDiv.classList.add(`p${currPlayer}`);
+	// currPlayer === 1 ? newDiv.classList.add('p1') : newDiv.classList.add('p2');
 	const square = document.getElementById(`${y}-${x}`);
 	// newDiv.style.top = -50 * (y + 2);
 	square.append(newDiv);
-	console.log(square, board);
 };
 
 /** endGame: announce game end */
@@ -105,12 +102,8 @@ const handleClick = (evt) => {
 
 	// place piece in board and add to HTML table
 	// TODO: add line to update in-memory board
-
-	placeInTable(y, x);
 	board[y][x] = currPlayer;
-	console.log(y, x, board[x][y], board);
-
-	// board[5][6] += 'test';
+	placeInTable(y, x);
 
 	// check for win
 	if (checkForWin()) {
@@ -124,6 +117,10 @@ const handleClick = (evt) => {
 	// 	if (row[0].every((val) => val !== null)) gameOver = true;
 	// }
 	// if (gameOver) endGame();
+	if (board.every((row) => row.every((square) => square))) {
+		console.log(board);
+		return endGame('Tie!');
+	}
 
 	// switch players
 	// TODO: switch currPlayer 1 <-> 2
