@@ -101,6 +101,7 @@ const handleClick = (evt) => {
 	// place piece in board and add to HTML table
 	// TODO: add line to update in-memory board
 	placeInTable(y, x);
+	board[y][x] = currPlayer;
 
 	// check for win
 	if (checkForWin()) {
@@ -109,7 +110,11 @@ const handleClick = (evt) => {
 
 	// check for tie
 	// TODO: check if all cells in board are filled; if so call, call endGame
-
+	let gameOver = false;
+	for (let row = 0; row < HEIGHT; row++) {
+		if (row[0].every((val) => val !== null)) gameOver = true;
+	}
+	if (gameOver) endGame();
 	// switch players
 	// TODO: switch currPlayer 1 <-> 2
 	currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1);
