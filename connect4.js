@@ -74,9 +74,7 @@ const placeInTable = (y, x) => {
 	// TODO: make a div and insert into correct table cell
 	const newDiv = document.createElement('div');
 	newDiv.classList.add('piece');
-	currPlayer === 1
-		? newDiv.classList.add('player1')
-		: newDiv.classList.add('player2');
+	currPlayer === 1 ? newDiv.classList.add('p1') : newDiv.classList.add('p2');
 	const square = document.getElementById(y + '-' + x);
 	square.appendChild(newDiv);
 	console.log(square);
