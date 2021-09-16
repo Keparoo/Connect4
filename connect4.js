@@ -32,12 +32,15 @@ const makeBoard = () => {
 
 const makeHtmlBoard = () => {
 	// TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
-
+	htmlBoard = document.querySelector('#board');
 	// TODO: add comment for this code
+
+	// Create top row of board to accept click
 	const top = document.createElement('tr');
 	top.setAttribute('id', 'column-top');
 	top.addEventListener('click', handleClick);
 
+	// Set up top row with ids of x values
 	for (let x = 0; x < WIDTH; x++) {
 		const headCell = document.createElement('td');
 		headCell.setAttribute('id', x);
@@ -46,6 +49,7 @@ const makeHtmlBoard = () => {
 	htmlBoard.append(top);
 
 	// TODO: add comment for this code
+	// Create the grid for play with x-y ids
 	for (let y = 0; y < HEIGHT; y++) {
 		const row = document.createElement('tr');
 		for (let x = 0; x < WIDTH; x++) {
@@ -68,6 +72,14 @@ const findSpotForCol = (x) => {
 
 const placeInTable = (y, x) => {
 	// TODO: make a div and insert into correct table cell
+	const newDiv = document.createElement('div');
+	newDiv.classList.add('piece');
+	currPlayer === 1
+		? newDiv.classList.add('player1')
+		: newDiv.classList.add('player2');
+	const square = document.getElementById(y + '-' + x);
+	square.appendChild(newDiv);
+	console.log(square);
 };
 
 /** endGame: announce game end */
