@@ -75,8 +75,8 @@ const placeInTable = (y, x) => {
 
 // Alert player that game is over with passed msg
 const endGame = (msg) => {
-	background.classList.remove('play');
-	background.classList.add('gameOver');
+	background.classList.toggle('play');
+	background.classList.toggle('gameOver');
 	gameMessage.innerText = msg;
 	resetButton.classList.remove('hidden');
 };
@@ -160,6 +160,7 @@ const handleClick = (evt) => {
 
 	// Change current player to other player
 	currPlayer = currPlayer === 1 ? 2 : 1;
+	gameMessage.innerText = `Player ${currPlayer} click to add a piece`;
 };
 
 // Reload page if Play again button is clicked
