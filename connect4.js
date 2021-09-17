@@ -151,6 +151,7 @@ const handleClick = (evt) => {
 
 	// Check if all cells on board are filled, if so end game as a tie
 	if (board.every((row) => row.every((square) => square))) {
+		topRow.removeEventListener('click', handleClick);
 		return endGame('Tie!');
 	}
 
