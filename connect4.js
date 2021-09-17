@@ -6,8 +6,8 @@
  * 
  */
 
-const WIDTH = 7;
-const HEIGHT = 6;
+const WIDTH = 7; // Width of playing board
+const HEIGHT = 6; // Height of playing board
 
 let currPlayer = 1; // active player: 1 or 2 -- Player 1 is red, Player 2 is blue
 let board; // array of rows, each row is array of cells  (board[y][x])
@@ -58,9 +58,7 @@ const makeHtmlBoard = () => {
 // return y coord of next available grid space or null if column is filled
 const findSpotForCol = (x) => {
 	for (let y = HEIGHT - 1; y >= 0; y--) {
-		if (!board[y][x]) {
-			return y;
-		}
+		if (!board[y][x]) return y;
 	}
 	return null;
 };
@@ -129,15 +127,13 @@ const checkForWin = () => {
 
 // When square of top row is clicked, attempt to put piece in that column
 const handleClick = (evt) => {
-	topRow = document.querySelector('#column-top');
+	const topRow = document.querySelector('#column-top');
 	// get x from ID of clicked cell
 	const x = +evt.target.id;
 
 	// get next spot in column (if none, ignore click)
 	const y = findSpotForCol(x);
-	if (y === null) {
-		return;
-	}
+	if (y === null) return;
 
 	// place piece in HTML board correspoding JS array representation
 	board[y][x] = currPlayer;
@@ -152,7 +148,7 @@ const handleClick = (evt) => {
 	// Check if all cells on board are filled, if so end game as a tie
 	if (board.every((row) => row.every((square) => square))) {
 		topRow.removeEventListener('click', handleClick);
-		return endGame('Tie!');
+		return endGame('Player 1 and 2 have Tied!');
 	}
 
 	// Change current player to other player

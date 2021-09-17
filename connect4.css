@@ -29,7 +29,7 @@ body {
 
 @keyframes slidedown {
 	from {
-		top: -350px;
+		top: -342px;
 	}
 
 	to {
@@ -45,7 +45,7 @@ body {
 	border-radius: 50%;
 	position: absolute;
 	top: 0;
-	animation: slidedown 0.5s ease-in;
+	animation: slidedown 0.35s ease-in;
 }
 
 /* Set player 1 to red and player 2 to blue */
