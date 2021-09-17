@@ -128,6 +128,10 @@ const checkForWin = () => {
 	}
 };
 
+const checkForTie = () => {
+	return board.every((row) => row.every((square) => square));
+};
+
 // When square of top row is clicked, attempt to put piece in that column
 const handleClick = (evt) => {
 	const topRow = document.querySelector('#column-top');
@@ -149,7 +153,7 @@ const handleClick = (evt) => {
 	}
 
 	// Check if all cells on board are filled, if so end game as a tie
-	if (board.every((row) => row.every((square) => square))) {
+	if (checkForTie()) {
 		topRow.removeEventListener('click', handleClick);
 		return endGame('Player 1 and 2 have Tied!');
 	}
