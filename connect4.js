@@ -77,37 +77,6 @@ const endGame = (msg) => {
 	resetButton.classList.remove('hidden');
 };
 
-// When square of top row is clicked, attempt to put piece in that column
-const handleClick = (evt) => {
-	// get x from ID of clicked cell
-	const x = +evt.target.id;
-
-	// get next spot in column (if none, ignore click)
-	const y = findSpotForCol(x);
-	if (y === null) {
-		return;
-	}
-
-	// place piece in HTML board correspoding JS array representation
-	board[y][x] = currPlayer;
-	placeInTable(y, x);
-	console.log('piece placed');
-
-	// check for win
-	if (checkForWin()) {
-		console.log('game won');
-		return endGame(`Player ${currPlayer} won!`);
-	}
-
-	// Check if all cells on board are filled, if so end game as a tie
-	if (board.every((row) => row.every((square) => square))) {
-		return endGame('Tie!');
-	}
-
-	// Change current player to other player
-	currPlayer = currPlayer === 1 ? 2 : 1;
-};
-
 // checkForWin: check board cell-by-cell for "does a win start here?"
 const checkForWin = () => {
 	const _win = (cells) => {
@@ -153,6 +122,37 @@ const checkForWin = () => {
 			}
 		}
 	}
+};
+
+// When square of top row is clicked, attempt to put piece in that column
+const handleClick = (evt) => {
+	// get x from ID of clicked cell
+	const x = +evt.target.id;
+
+	// get next spot in column (if none, ignore click)
+	const y = findSpotForCol(x);
+	if (y === null) {
+		return;
+	}
+
+	// place piece in HTML board correspoding JS array representation
+	board[y][x] = currPlayer;
+	placeInTable(y, x);
+	console.log('piece placed');
+
+	// check for win
+	if (checkForWin()) {
+		console.log('game won');
+		return endGame(`Player ${currPlayer} won!`);
+	}
+
+	// Check if all cells on board are filled, if so end game as a tie
+	if (board.every((row) => row.every((square) => square))) {
+		return endGame('Tie!');
+	}
+
+	// Change current player to other player
+	currPlayer = currPlayer === 1 ? 2 : 1;
 };
 
 // Reload page if Play again button is clicked
