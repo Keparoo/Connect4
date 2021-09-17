@@ -76,7 +76,6 @@ const placeInTable = (y, x) => {
 const endGame = (msg) => {
 	gameMessage.innerText = msg;
 	clickRow.removeEventListener('click', handleClick);
-	console.log('stop click');
 	resetButton.classList.remove('hidden');
 };
 
@@ -141,11 +140,9 @@ const handleClick = (evt) => {
 	// place piece in HTML board correspoding JS array representation
 	board[y][x] = currPlayer;
 	placeInTable(y, x);
-	console.log('piece placed');
 
 	// check for win
 	if (checkForWin()) {
-		console.log('game won');
 		return endGame(`Player ${currPlayer} won!`);
 	}
 
