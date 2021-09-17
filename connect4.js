@@ -11,6 +11,7 @@ const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2 -- Player 1 is red, Player 2 is blue
 const board = []; // array of rows, each row is array of cells  (board[y][x])
+const htmlBoard = document.querySelector('#board');
 const gameMessage = document.querySelector('#msg');
 const resetButton = document.querySelector('#reset');
 resetButton.classList.add('hidden');
@@ -18,14 +19,13 @@ resetButton.classList.add('hidden');
 //create JS repr of board: array or rows, each row array of cells (board[y][x])
 const makeBoard = () => {
 	for (let row = 0; row < HEIGHT; row++) {
+		// Creates an array of WIDTH length with undefined at each index
 		board.push(Array.from({ length: WIDTH }));
 	}
 };
 
 //create HTML representation of board: HTML table and row of column tops
 const makeHtmlBoard = () => {
-	const htmlBoard = document.querySelector('#board');
-
 	// Create top row (tr) of board to accept click events
 	const top = document.createElement('tr');
 	top.setAttribute('id', 'column-top');
@@ -50,6 +50,7 @@ const makeHtmlBoard = () => {
 		}
 		htmlBoard.append(row);
 	}
+	return top;
 };
 
 // return y coord of next available grid space or null if column is filled
@@ -74,6 +75,8 @@ const placeInTable = (y, x) => {
 // Alert player that game is over with passed msg
 const endGame = (msg) => {
 	gameMessage.innerText = msg;
+	clickRow.removeEventListener('click', handleClick);
+	console.log('stop click');
 	resetButton.classList.remove('hidden');
 };
 
@@ -161,4 +164,4 @@ resetButton.addEventListener('click', () => {
 });
 
 makeBoard();
-makeHtmlBoard();
+const clickRow = makeHtmlBoard();
