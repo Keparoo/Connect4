@@ -158,7 +158,7 @@ const handleClick = (evt) => {
 		return endGame('Player 1 and 2 have Tied!');
 	}
 
-	// Change current player to other player
+	// Change current player to other player and update message
 	currPlayer = currPlayer === 1 ? 2 : 1;
 	gameMessage.innerText = `Player ${currPlayer} click to add a piece`;
 };
