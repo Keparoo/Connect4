@@ -10,7 +10,7 @@ const WIDTH = 7;
 const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2 -- Player 1 is red, Player 2 is blue
-const board = []; // array of rows, each row is array of cells  (board[y][x])
+let board; // array of rows, each row is array of cells  (board[y][x])
 const htmlBoard = document.querySelector('#board');
 const gameMessage = document.querySelector('#msg');
 const resetButton = document.querySelector('#reset');
@@ -18,6 +18,7 @@ resetButton.classList.add('hidden');
 
 //create JS repr of board: array or rows, each row array of cells (board[y][x])
 const makeBoard = () => {
+	board = [];
 	for (let row = 0; row < HEIGHT; row++) {
 		// Creates an array of WIDTH length with undefined at each index
 		board.push(Array.from({ length: WIDTH }));
@@ -26,6 +27,7 @@ const makeBoard = () => {
 
 //create HTML representation of board: HTML table and row of column tops
 const makeHtmlBoard = () => {
+	htmlBoard.innerHTML = '';
 	// Create top row (tr) of board to accept click events
 	const top = document.createElement('tr');
 	top.setAttribute('id', 'column-top');
@@ -75,7 +77,6 @@ const placeInTable = (y, x) => {
 // Alert player that game is over with passed msg
 const endGame = (msg) => {
 	gameMessage.innerText = msg;
-	clickRow.removeEventListener('click', handleClick);
 	resetButton.classList.remove('hidden');
 };
 
@@ -128,6 +129,7 @@ const checkForWin = () => {
 
 // When square of top row is clicked, attempt to put piece in that column
 const handleClick = (evt) => {
+	topRow = document.querySelector('#column-top');
 	// get x from ID of clicked cell
 	const x = +evt.target.id;
 
@@ -143,6 +145,7 @@ const handleClick = (evt) => {
 
 	// check for win
 	if (checkForWin()) {
+		topRow.removeEventListener('click', handleClick);
 		return endGame(`Player ${currPlayer} won!`);
 	}
 
@@ -157,8 +160,12 @@ const handleClick = (evt) => {
 
 // Reload page if Play again button is clicked
 resetButton.addEventListener('click', () => {
-	location.reload();
+	startGame();
 });
 
-makeBoard();
-const clickRow = makeHtmlBoard();
+const startGame = () => {
+	makeBoard();
+	makeHtmlBoard();
+};
+
+startGame();
