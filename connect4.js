@@ -11,6 +11,9 @@ const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2 -- Player 1 is red, Player 2 is blue
 const board = []; // array of rows, each row is array of cells  (board[y][x])
+const gameMessage = document.querySelector('#msg');
+const resetButton = document.querySelector('#reset');
+resetButton.classList.add('hidden');
 
 //create JS repr of board: array or rows, each row array of cells (board[y][x])
 const makeBoard = () => {
@@ -70,7 +73,8 @@ const placeInTable = (y, x) => {
 
 // Alert player that game is over with passed msg
 const endGame = (msg) => {
-	alert(msg);
+	gameMessage.innerText = msg;
+	resetButton.classList.remove('hidden');
 };
 
 // When square of top row is clicked, attempt to put piece in that column
@@ -151,5 +155,12 @@ const checkForWin = () => {
 	}
 };
 
+// Reload page if Play again button is clicked
+resetButton.addEventListener('click', () => {
+	location.reload();
+});
+
 makeBoard();
+gameMessage.innerHTML =
+	'<p>To start the game:</p><p>Player 1 click on a square in the top row to drop a piece<p>';
 makeHtmlBoard();
