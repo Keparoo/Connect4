@@ -11,30 +11,24 @@ const HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 
-/** makeBoard: create in-JS board structure:
- *    board = array of rows, each row is array of cells  (board[y][x])
- */
-
+//create JS repr of board: array or rows, each row array of cells (board[y][x])
 const makeBoard = () => {
-	// TODO: set "board" to empty HEIGHT x WIDTH matrix array
 	for (let row = 0; row < HEIGHT; row++) {
 		board.push(Array.from({ length: WIDTH }));
 	}
 };
 
-/** makeHtmlBoard: make HTML table and row of column tops. */
-
+//create HTML representation of board: HTML table and row of column tops
 const makeHtmlBoard = () => {
-	// TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
 	const htmlBoard = document.querySelector('#board');
 	// TODO: add comment for this code
 
-	// Create top row of board to accept click
+	// Create top row (tr) of board to accept click events
 	const top = document.createElement('tr');
 	top.setAttribute('id', 'column-top');
 	top.addEventListener('click', handleClick);
 
-	// Set up top row with ids of x values
+	// Set up the tds of tr and assign each td and id of the x position
 	for (let x = 0; x < WIDTH; x++) {
 		const headCell = document.createElement('td');
 		headCell.setAttribute('id', x);
@@ -42,8 +36,8 @@ const makeHtmlBoard = () => {
 	}
 	htmlBoard.append(top);
 
-	// TODO: add comment for this code
-	// Create the grid for play with x-y ids
+	// Create the HTML board for play as a table, each td having ids of x-y
+	// where x and y are the coordinate indexes
 	for (let y = 0; y < HEIGHT; y++) {
 		const row = document.createElement('tr');
 		for (let x = 0; x < WIDTH; x++) {
@@ -55,40 +49,31 @@ const makeHtmlBoard = () => {
 	}
 };
 
-/** findSpotForCol: given column x, return top empty y (null if filled) */
-
+// return y coord of next available grid space or null if column is filled
 const findSpotForCol = (x) => {
-	// TODO: write the real version of this, rather than always returning 0
-	for (let row = HEIGHT - 1; row >= 0; row--) {
-		if (!board[row][x]) {
-			return row;
+	for (let y = HEIGHT - 1; y >= 0; y--) {
+		if (!board[y][x]) {
+			return y;
 		}
 	}
 	return null;
 };
 
-/** placeInTable: update DOM to place piece into HTML table of board */
-
+// place a piece in HTML table at passed coords. Set color based on player number
 const placeInTable = (y, x) => {
-	// TODO: make a div and insert into correct table cell
-	const newDiv = document.createElement('div');
-	newDiv.classList.add('piece');
-	newDiv.classList.add(`p${currPlayer}`);
-	// currPlayer === 1 ? newDiv.classList.add('p1') : newDiv.classList.add('p2');
+	const newPiece = document.createElement('div');
+	newPiece.classList.add('piece');
+	newPiece.classList.add(`p${currPlayer}`);
 	const square = document.getElementById(`${y}-${x}`);
-	// newDiv.style.top = -50 * (y + 2);
-	square.append(newDiv);
+	square.append(newPiece);
 };
 
-/** endGame: announce game end */
-
+// Alert player that game is over with passed msg
 const endGame = (msg) => {
-	// TODO: pop up alert message
 	alert(msg);
 };
 
-/** handleClick: handle click of column top to play piece */
-
+// When square of top row is clicked, attempt to put piece in that column
 const handleClick = (evt) => {
 	// get x from ID of clicked cell
 	const x = +evt.target.id;
@@ -96,12 +81,10 @@ const handleClick = (evt) => {
 	// get next spot in column (if none, ignore click)
 	const y = findSpotForCol(x);
 	if (y === null) {
-		console.log('column full');
 		return;
 	}
 
-	// place piece in board and add to HTML table
-	// TODO: add line to update in-memory board
+	// place piece in HTML board correspoding JS array representation
 	board[y][x] = currPlayer;
 	placeInTable(y, x);
 
@@ -110,24 +93,16 @@ const handleClick = (evt) => {
 		return endGame(`Player ${currPlayer} won!`);
 	}
 
-	// check for tie
-	// TODO: check if all cells in board are filled; if so call, call endGame
-	// let gameOver = false;
-	// for (let row = 0; row < HEIGHT; row++) {
-	// 	if (row[0].every((val) => val !== null)) gameOver = true;
-	// }
-	// if (gameOver) endGame();
+	// Check if all cells on board are filled, if so end game as a tie
 	if (board.every((row) => row.every((square) => square))) {
 		return endGame('Tie!');
 	}
 
-	// switch players
-	// TODO: switch currPlayer 1 <-> 2
+	// Change current player to other player
 	currPlayer = currPlayer === 1 ? 2 : 1;
 };
 
-/** checkForWin: check board cell-by-cell for "does a win start here?" */
-
+// checkForWin: check board cell-by-cell for "does a win start here?"
 const checkForWin = () => {
 	const _win = (cells) => {
 		// Check four cells to see if they're all color of current player
