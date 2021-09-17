@@ -161,6 +161,4 @@ resetButton.addEventListener('click', () => {
 });
 
 makeBoard();
-gameMessage.innerHTML =
-	'<p>To start the game:</p><p>Player 1 click on a square in the top row to drop a piece<p>';
 makeHtmlBoard();
