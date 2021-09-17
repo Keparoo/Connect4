@@ -9,7 +9,7 @@
 const WIDTH = 7;
 const HEIGHT = 6;
 
-let currPlayer = 1; // active player: 1 or 2
+let currPlayer = 1; // active player: 1 or 2 -- Player 1 is red, Player 2 is blue
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 //create JS repr of board: array or rows, each row array of cells (board[y][x])
@@ -22,7 +22,6 @@ const makeBoard = () => {
 //create HTML representation of board: HTML table and row of column tops
 const makeHtmlBoard = () => {
 	const htmlBoard = document.querySelector('#board');
-	// TODO: add comment for this code
 
 	// Create top row (tr) of board to accept click events
 	const top = document.createElement('tr');
