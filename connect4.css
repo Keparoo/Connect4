@@ -1,6 +1,5 @@
 /* game board table */
 body {
-	background-color: lightcyan;
 	font-family: 'Nunito', sans-serif;
 }
 
@@ -68,4 +67,12 @@ body {
 
 .hidden {
 	display: none;
+}
+
+.play {
+	background-color: lightcyan;
+}
+
+.gameOver {
+	background-color: white;
 }

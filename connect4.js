@@ -14,6 +14,7 @@ let board; // array of rows, each row is array of cells  (board[y][x])
 const htmlBoard = document.querySelector('#board');
 const gameMessage = document.querySelector('#msg');
 const resetButton = document.querySelector('#reset');
+const background = document.querySelector('body');
 resetButton.classList.add('hidden');
 
 //create JS repr of board: array or rows, each row array of cells (board[y][x])
@@ -74,6 +75,8 @@ const placeInTable = (y, x) => {
 
 // Alert player that game is over with passed msg
 const endGame = (msg) => {
+	background.classList.remove('play');
+	background.classList.add('gameOver');
 	gameMessage.innerText = msg;
 	resetButton.classList.remove('hidden');
 };
@@ -161,6 +164,8 @@ resetButton.addEventListener('click', () => {
 });
 
 const startGame = () => {
+	background.classList.remove('gameOver');
+	background.classList.add('play');
 	makeBoard();
 	makeHtmlBoard();
 };
