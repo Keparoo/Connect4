@@ -21,7 +21,7 @@ const makeBoard = () => {
 	board = [];
 	for (let row = 0; row < HEIGHT; row++) {
 		// Creates an array of WIDTH length with undefined at each index
-		board.push(Array.from({ length: WIDTH }));
+		board.push(Array.apply(null, { length: WIDTH }));
 	}
 };
 
