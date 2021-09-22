@@ -41,8 +41,12 @@ class Game {
 		this.htmlBoard = ''; // array of rows, each row is array of cells  (board[y][x])
 		this.makeBoard();
 		this.makeHtmlBoard();
+        document.body.classList.add('start-color')
+        document.body.classList.remove('win-color')
+
 		this.gameOver = false;
 	}
+    
     //create JS repr of board: array or rows, each row array of cells (board[y][x])
     makeBoard() {
         this.board = [];
@@ -51,6 +55,7 @@ class Game {
             this.board.push(Array.apply(null, { length: this.WIDTH }));
         }
     };
+
     //create HTML representation of board: HTML table and row of column tops
     makeHtmlBoard() {
         this.htmlBoard = document.getElementById('board')
@@ -112,16 +117,13 @@ class Game {
         square.append(newPiece);
     };
 
-    // startGame() {
-    //     makeBoard();
-    //     makeHtmlBoard();
-    // };
-
     // Alert player that game is over with passed msg
     endGame(msg) {
         const top = document.querySelector('#column-top');
         top.removeEventListener('click', this.bindGameClick);
 		this.gameOver = true;
+        document.body.classList.toggle('win-color')
+        document.body.classList.toggle('start-color')
 		document.querySelector('#footer').innerText = msg;
 
         // gameMessage.innerText = msg;
@@ -204,19 +206,12 @@ class Game {
         }
 
         // Change current player to other player
-        // currPlayer = currPlayer === 1 ? 2 : 1;
         this.currPlayer === this.p1
         ? (this.currPlayer = this.p2)
         : (this.currPlayer = this.p1);
     };
 
 }
-
-
-// Reload page if Play again button is clicked
-// resetButton.addEventListener('click', () => {
-// 	startGame();
-// });
 
 class Player {
 	constructor(color) {
@@ -229,5 +224,3 @@ document.querySelector('#reset').addEventListener('click', () => {
 	let p2 = new Player(document.querySelector('#p2color').value);
 	new Game(p1, p2);
 });
-
-// startGame();
