@@ -6,15 +6,6 @@
  * 
  */
 
-// const WIDTH = 7; // Width of playing board
-// const HEIGHT = 6; // Height of playing board
-
-// let currPlayer = 1; // active player: 1 or 2 -- Player 1 is red, Player 2 is blue
-// let board; // array of rows, each row is array of cells  (board[y][x])
-// const htmlBoard = document.querySelector('#board');
-// const gameMessage = document.querySelector('#msg');
-// const resetButton = document.querySelector('#reset');
-// resetButton.classList.add('hidden');
 footer = document.querySelector('#footer')
 button = document.querySelector('#reset')
 
