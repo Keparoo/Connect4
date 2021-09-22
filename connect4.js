@@ -15,6 +15,8 @@
 // const gameMessage = document.querySelector('#msg');
 // const resetButton = document.querySelector('#reset');
 // resetButton.classList.add('hidden');
+footer = document.querySelector('#footer')
+button = document.querySelector('#reset')
 
 class Game {
     constructor(p1, p2, height = 6, width = 7) {
@@ -30,7 +32,7 @@ class Game {
 			document.querySelector('#footer').innerText = '';
 		} else {
 			document.querySelector('#footer').innerText =
-				'Please 2 valid different colors!';
+				'Please enter 2 valid different colors!';
 			throw new Error('Invalid Color');
 		}
 
@@ -88,6 +90,8 @@ class Game {
             }
             this.htmlBoard.append(row);
         }
+        button.innerText = 'Reset Game'
+        footer.innerText = `${this.currPlayer.color} player's turn`
     };
 
     // Validate legal color
@@ -121,7 +125,6 @@ class Game {
     endGame(msg) {
         const top = document.querySelector('#column-top');
         top.removeEventListener('click', this.bindGameClick);
-		this.gameOver = true;
         document.body.classList.toggle('win-color')
         document.body.classList.toggle('start-color')
 		document.querySelector('#footer').innerText = msg;
@@ -209,6 +212,7 @@ class Game {
         this.currPlayer === this.p1
         ? (this.currPlayer = this.p2)
         : (this.currPlayer = this.p1);
+        footer.innerText = `${this.currPlayer.color} player's turn`
     };
 
 }
@@ -219,7 +223,8 @@ class Player {
 	}
 }
 
-document.querySelector('#reset').addEventListener('click', () => {
+document.querySelector('#colors').addEventListener('submit', (e) => {
+    e.preventDefault()
 	let p1 = new Player(document.querySelector('#p1color').value);
 	let p2 = new Player(document.querySelector('#p2color').value);
 	new Game(p1, p2);
