@@ -6,11 +6,12 @@
  * 
  */
 
-footer = document.querySelector('#footer')
-button = document.querySelector('#reset')
+const htmlBoard = document.querySelector('#board')
+const footer = document.querySelector('#footer')
+const button = document.querySelector('#reset')
 
 class Game {
-    constructor(p1, p2, height = 6, width = 7) {
+    constructor(p1, p2, htmlBoard, footer, button, height = 6, width = 7) {
 		const isColor = (strColor) => {
 			const option = new Option().style;
 			option.color = strColor;
@@ -20,9 +21,9 @@ class Game {
 		if (isColor(p1.color) && isColor(p2.color) && p1.color !== p2.color) {
 			this.p1 = p1;
 			this.p2 = p2;
-			document.querySelector('#footer').innerText = '';
+			footer.innerText = '';
 		} else {
-			document.querySelector('#footer').innerText =
+			footer.innerText =
 				'Please enter 2 valid different colors!';
 			throw new Error('Invalid Color');
 		}
@@ -31,7 +32,9 @@ class Game {
 		this.HEIGHT = height;
 		this.currPlayer = this.p1; // active player: 1 or 2
 		this.board = [];
-		this.htmlBoard = ''; // array of rows, each row is array of cells  (board[y][x])
+		this.htmlBoard = htmlBoard; // array of rows, each row is array of cells  (board[y][x])
+        this.footer = footer;
+        this.button = button;
 		this.makeBoard();
 		this.makeHtmlBoard();
         document.body.classList.add('start-color')
@@ -67,7 +70,7 @@ class Game {
 
     //create HTML representation of board: HTML table and row of column tops
     makeHtmlBoard() {
-        this.htmlBoard = document.getElementById('board')
+        // this.htmlBoard = document.getElementById('board')
         this.htmlBoard.innerHTML = '';
 
         this.htmlBoard.append(this.createTopRow());
@@ -84,8 +87,8 @@ class Game {
             }
             this.htmlBoard.append(row);
         }
-        button.innerText = 'Reset Game'
-        footer.innerText = `${this.currPlayer.color} player's turn`
+        this.button.innerText = 'Reset Game'
+        this.footer.innerText = `${this.currPlayer.color} player's turn`
     };
 
     // Validate legal color
@@ -207,7 +210,7 @@ class Game {
         this.currPlayer === this.p1
         ? (this.currPlayer = this.p2)
         : (this.currPlayer = this.p1);
-        footer.innerText = `${this.currPlayer.color} player's turn`
+        this.footer.innerText = `${this.currPlayer.color} player's turn`
     };
 
 }
@@ -222,5 +225,5 @@ document.querySelector('#colors').addEventListener('submit', (e) => {
     e.preventDefault()
 	let p1 = new Player(document.querySelector('#p1color').value);
 	let p2 = new Player(document.querySelector('#p2color').value);
-	new Game(p1, p2);
+	new Game(p1, p2, htmlBoard, footer, button);
 });
