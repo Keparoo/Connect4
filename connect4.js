@@ -64,13 +64,17 @@ const findSpotForCol = (x) => {
 	return null;
 };
 
-// place a piece in HTML table at passed coords. Set color based on player number
-const placeInTable = (y, x) => {
-	const newPiece = document.createElement('div');
+const createPiece = () => {
+    const newPiece = document.createElement('div');
 	newPiece.classList.add('piece');
 	newPiece.classList.add(`p${currPlayer}`);
+    return newPiece
+}
+
+// place a piece in HTML table at passed coords. Set color based on player number
+const placeInTable = (y, x) => {
 	const square = document.getElementById(`${y}-${x}`);
-	square.append(newPiece);
+	square.append(createPiece());
 };
 
 // Alert player that game is over with passed msg
