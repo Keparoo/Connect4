@@ -24,19 +24,17 @@ class Game {
 			throw new Error('Invalid Color');
 		}
 
-		this.WIDTH = width;
-		this.HEIGHT = height;
+		this.WIDTH = width; // board width
+		this.HEIGHT = height; // board height
 		this.currPlayer = this.p1; // active player: 1 or 2
-		this.board = [];
-		this.htmlBoard = htmlBoard; // array of rows, each row is array of cells  (board[y][x])
-        this.footer = footer;
-        this.button = button;
+		this.board = []; // Javascript representation of board (board[y][x])
+		this.htmlBoard = htmlBoard; // HTML representation of board  (htmlBoard[y][x])
+        this.footer = footer; // Message to players
+        this.button = button; // start/reset button
 		this.makeBoard();
 		this.makeHtmlBoard();
         document.body.classList.add('start-color')
         document.body.classList.remove('win-color')
-
-		this.gameOver = false;
 	}
     
     //create JS repr of board: array or rows, each row array of cells (board[y][x])
@@ -201,6 +199,7 @@ class Game {
 
 }
 
+// Color of player's pieces
 class Player {
 	constructor(color) {
 		this.color = color;
@@ -209,7 +208,7 @@ class Player {
 
 document.querySelector('#colors').addEventListener('submit', (e) => {
     e.preventDefault()
-	let p1 = new Player(document.querySelector('#p1color').value);
-	let p2 = new Player(document.querySelector('#p2color').value);
+	let p1 = new Player(document.querySelector('#p1color').value.toLowerCase());
+	let p2 = new Player(document.querySelector('#p2color').value.toLowerCase());
 	new Game(p1, p2, htmlBoard, footer, button);
 });
