@@ -15,7 +15,9 @@ body {
 }
 
 #board {
-	margin: auto;
+    margin-top: 75px;
+    margin-left: auto;
+    margin-right: auto;
 	overflow: hidden;
 }
 
@@ -47,15 +49,6 @@ body {
 	animation: slidedown 0.35s ease-in;
 }
 
-/* Set player 1 to red and player 2 to blue */
-.p1 {
-	background-color: red;
-}
-
-.p2 {
-	background-color: blue;
-}
-
 /* column-top is table row of clickable areas for each column */
 #column-top td {
 	border: dashed 1px lightgray;
@@ -65,8 +58,12 @@ body {
 	background-color: gold;
 }
 
-.hidden {
-	display: none;
+.win-color {
+    background-color: white;
+}
+
+.start-color {
+    background-color: lightcyan;
 }
 
 .play {
