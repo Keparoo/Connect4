@@ -26,9 +26,8 @@ const makeBoard = () => {
 	}
 };
 
-//create HTML representation of board: HTML table and row of column tops
-const makeHtmlBoard = () => {
-	htmlBoard.innerHTML = '';
+const createTopRow = () => {
+    
 	// Create top row (tr) of board to accept click events
 	const top = document.createElement('tr');
 	top.setAttribute('id', 'column-top');
@@ -40,7 +39,14 @@ const makeHtmlBoard = () => {
 		headCell.setAttribute('id', x);
 		top.append(headCell);
 	}
-	htmlBoard.append(top);
+    return top
+}
+
+//create HTML representation of board: HTML table and row of column tops
+const makeHtmlBoard = () => {
+	htmlBoard.innerHTML = '';
+
+	htmlBoard.append(createTopRow());
 
 	// Create the HTML board for play as a table, each td having ids of x-y
 	// where x and y are the coordinate indexes
