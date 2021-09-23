@@ -49,25 +49,43 @@ class Game {
         }
     };
 
-    //create HTML representation of board: HTML table and row of column tops
-    makeHtmlBoard() {
-        this.htmlBoard = document.getElementById('board')
-        this.htmlBoard.innerHTML = '';
-
+    createTopRow() {
+    
         // Create top row (tr) of board to accept click events
         const top = document.createElement('tr');
         top.setAttribute('id', 'column-top');
-
         this.bindGameClick = this.handleClick.bind(this);
         top.addEventListener('click', this.bindGameClick);
-
+    
         // Set up the tds of tr and assign each td and id of the x position
         for (let x = 0; x < this.WIDTH; x++) {
             const headCell = document.createElement('td');
             headCell.setAttribute('id', x);
             top.append(headCell);
         }
-        this.htmlBoard.append(top);
+        return top
+    }
+
+    //create HTML representation of board: HTML table and row of column tops
+    makeHtmlBoard() {
+        this.htmlBoard = document.getElementById('board')
+        this.htmlBoard.innerHTML = '';
+
+        // // Create top row (tr) of board to accept click events
+        // const top = document.createElement('tr');
+        // top.setAttribute('id', 'column-top');
+
+        // this.bindGameClick = this.handleClick.bind(this);
+        // top.addEventListener('click', this.bindGameClick);
+
+        // // Set up the tds of tr and assign each td and id of the x position
+        // for (let x = 0; x < this.WIDTH; x++) {
+        //     const headCell = document.createElement('td');
+        //     headCell.setAttribute('id', x);
+        //     top.append(headCell);
+        // }
+
+        this.htmlBoard.append(this.createTopRow());
 
         // Create the HTML board for play as a table, each td having ids of x-y
         // where x and y are the coordinate indexes
