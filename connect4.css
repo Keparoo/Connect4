@@ -1,6 +1,7 @@
 /* game board table */
 body {
 	font-family: 'Nunito', sans-serif;
+    background-color: lightcyan;
 }
 
 #header {
