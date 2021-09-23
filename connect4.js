@@ -100,16 +100,17 @@ class Game {
         return null;
     };
 
-    // place a piece in HTML table at passed coords. Set color based on player number
-    placeInTable(y, x) {
+    createPiece() {
         const newPiece = document.createElement('div');
         newPiece.classList.add('piece');
-
         newPiece.style.backgroundColor = this.currPlayer.color
-        // newPiece.classList.add(`p${currPlayer}`);
+        return newPiece
+    }
 
+    // place a piece in HTML table at passed coords. Set color based on player number
+    placeInTable(y, x) {
         const square = document.getElementById(`${y}-${x}`);
-        square.append(newPiece);
+        square.append(this.createPiece());
     };
 
     // Alert player that game is over with passed msg
