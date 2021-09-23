@@ -16,7 +16,9 @@ body {
 }
 
 #board {
-	margin: auto;
+    margin-top: 75px;
+    margin-left: auto;
+    margin-right: auto;
 	overflow: hidden;
 }
 
