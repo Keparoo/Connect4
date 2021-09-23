@@ -1,8 +1,8 @@
 /* Connect Four
  *
- * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
- * column until a player gets four-in-a-row (horiz, vert, or diag) or until
- * the board is filled (tie)
+ * Player 1 and 2 alternate turns. First, player 1 and player 2 choose their color.
+ * On each turn, a piece is dropped down a columnn until a player gets
+ * four-in-a-row (horiz, vert, or diag) or until the board is filled (tie)
  * 
  */
 
@@ -12,13 +12,9 @@ const button = document.querySelector('#reset')
 
 class Game {
     constructor(p1, p2, htmlBoard, footer, button, height = 6, width = 7) {
-		const isColor = (strColor) => {
-			const option = new Option().style;
-			option.color = strColor;
-			return option.color === strColor;
-		};
-		// Check both colors are valid different colors
-		if (isColor(p1.color) && isColor(p2.color) && p1.color !== p2.color) {
+
+        // Check that colors entered are valid and unique
+		if (Helper.isColor(p1.color) && Helper.isColor(p2.color) && p1.color !== p2.color) {
 			this.p1 = p1;
 			this.p2 = p2;
 			footer.innerText = '';
@@ -91,13 +87,6 @@ class Game {
         this.footer.innerText = `${this.currPlayer.color} player's turn`
     };
 
-    // Validate legal color
-	isColor(strColor) {
-		const option = new Option().style;
-		option.color = strColor;
-		return option.color === strColor;
-	}
-
     // return y coord of next available grid space or null if column is filled
     findSpotForCol(x) {
         for (let y = this.HEIGHT - 1; y >= 0; y--) {
@@ -126,9 +115,6 @@ class Game {
         document.body.classList.toggle('win-color')
         document.body.classList.toggle('start-color')
 		document.querySelector('#footer').innerText = msg;
-
-        // gameMessage.innerText = msg;
-        // resetButton.classList.remove('hidden');
     };
 
     // checkForWin: check board cell-by-cell for "does a win start here?"
