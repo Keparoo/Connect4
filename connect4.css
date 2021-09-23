@@ -36,7 +36,7 @@ body {
 	}
 }
 
-/* pieces are div within game table cells displayed as colored circles */
+/* pieces are divs within game table cells displayed as colored circles */
 .piece {
 	margin: 5px;
 	width: 80%;
