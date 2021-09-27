@@ -46,8 +46,8 @@ class Game {
 		document.body.classList.remove('win-color');
 	}
 
-	//create JS repr of board: array or rows, each row array of cells (board[y][x])
-	// Creates a 2D array of WIDTH length and HEIGHT with null at each index
+	// Create JS repr of board: array or rows, each row array of cells (board[y][x])
+	// Creates a 2D array of length and width with null at each value
 	makeBoard() {
 		this.board = [];
 		for (let row = 0; row < this.height; row++) {
@@ -175,6 +175,13 @@ class Game {
 		}
 	}
 
+	changePlayer = () => {
+		this.currPlayer === this.p1
+			? (this.currPlayer = this.p2)
+			: (this.currPlayer = this.p1);
+		this.footer.innerText = `${this.currPlayer.color} player's turn`;
+	};
+
 	// When square of top row is clicked, attempt to put piece in that column
 	handleClick(evt) {
 		const topRow = document.querySelector('#column-top');
@@ -200,10 +207,7 @@ class Game {
 		}
 
 		// Change current player to other player
-		this.currPlayer === this.p1
-			? (this.currPlayer = this.p2)
-			: (this.currPlayer = this.p1);
-		this.footer.innerText = `${this.currPlayer.color} player's turn`;
+		this.changePlayer();
 	}
 }
 
