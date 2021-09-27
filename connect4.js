@@ -56,11 +56,13 @@ class Game {
 	}
 
 	// Create top row (tr) of board to accept click events
-	createTopRow() {
+	createTopRow = () => {
 		const top = document.createElement('tr');
 		top.setAttribute('id', 'column-top');
-		this.bindGameClick = this.handleClick.bind(this);
-		top.addEventListener('click', this.bindGameClick);
+		// this.bindGameClick = this.handleClick.bind(this);
+		// // top.addEventListener('click', this.handleClick.bind(this));
+		// // top.addEventListener('click', this.bindGameClick);
+		top.addEventListener('click', this.handleClick);
 
 		// Set up the tds of tr and assign each td and id of the x position
 		for (let x = 0; x < this.width; x++) {
@@ -69,7 +71,7 @@ class Game {
 			top.append(headCell);
 		}
 		return top;
-	}
+	};
 
 	//create HTML representation of board: HTML table and row of column tops
 	makeHtmlBoard() {
@@ -117,7 +119,7 @@ class Game {
 	// Alert player that game is over with passed msg
 	endGame(msg) {
 		const top = document.querySelector('#column-top');
-		top.removeEventListener('click', this.bindGameClick);
+		top.removeEventListener('click', this.handleClick);
 		document.body.classList.toggle('win-color');
 		document.body.classList.toggle('start-color');
 		document.querySelector('#footer').innerText = msg;
@@ -188,24 +190,17 @@ class Game {
 		return this.board.every((row) => row.every((square) => square));
 	};
 
+	// Get x, y coordinates to place piece in htmlBoard
 	getCoordsToPlacePiece = (evt) => {
 		const x = evt.target.id;
 		const y = this.findSpotForCol(x);
-		console.log(x, y);
 		return [ x, y ];
 	};
 
 	// When square of top row is clicked, attempt to put piece in that column
-	handleClick(evt) {
-		// // get x from ID of clicked cell
-		// const x = evt.target.id;
-
-		// // get next spot in column (if none, ignore click)
-		// const y = this.findSpotForCol(x);
-		// if (y === null) return;
-
+	handleClick = (evt) => {
 		const [ x, y ] = this.getCoordsToPlacePiece(evt);
-		if (y === null) return;
+		if (y === null) return; // column full
 
 		// place piece in HTML board correspoding JS array representation
 		this.board[y][x] = this.currPlayer;
@@ -220,7 +215,7 @@ class Game {
 		}
 
 		this.changePlayer();
-	}
+	};
 }
 
 // Color of player's pieces
