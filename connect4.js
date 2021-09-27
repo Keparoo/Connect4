@@ -100,6 +100,7 @@ class Game {
 		return null;
 	};
 
+	// create a new piece to insert in HTMLboard
 	createPiece = () => {
 		const newPiece = document.createElement('div');
 		newPiece.classList.add('piece');
@@ -184,7 +185,16 @@ class Game {
 
 	// Check if all cells on board are filled, if so end game as a tie
 	checkForTie = () => {
-		return this.board.every((row) => row.every((square) => square));
+		// return this.board.every((row) => row.every((square) => square));
+		let result = true;
+		for (let x = 0; x < this.width; x++) {
+			console.log(this.board[0][x]);
+			if (!this.board[0][x]) {
+				result = false;
+				break;
+			}
+		}
+		return result;
 	};
 
 	// Get x, y coordinates to place piece in htmlBoard
