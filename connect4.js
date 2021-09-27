@@ -109,7 +109,7 @@ class Game {
 	}
 
 	// place a piece in HTML table at passed coords. Set color based on player number
-	placeInTable(y, x) {
+	placeInHTMLTable(y, x) {
 		const square = document.getElementById(`${y}-${x}`);
 		square.append(this.createPiece());
 	}
@@ -182,6 +182,11 @@ class Game {
 		this.footer.innerText = `${this.currPlayer.color} player's turn`;
 	};
 
+	// Check if all cells on board are filled, if so end game as a tie
+	checkForTie = () => {
+		return this.board.every((row) => row.every((square) => square));
+	};
+
 	// When square of top row is clicked, attempt to put piece in that column
 	handleClick(evt) {
 		const topRow = document.querySelector('#column-top');
@@ -194,19 +199,16 @@ class Game {
 
 		// place piece in HTML board correspoding JS array representation
 		this.board[y][x] = this.currPlayer;
-		this.placeInTable(y, x);
+		this.placeInHTMLTable(y, x);
 
-		// check for win
 		if (this.checkForWin()) {
 			return this.endGame(`The ${this.currPlayer.color} player  won!`);
 		}
 
-		// Check if all cells on board are filled, if so end game as a tie
-		if (this.board.every((row) => row.every((square) => square))) {
+		if (this.checkForTie()) {
 			return this.endGame('Player 1 and 2 have Tied!');
 		}
 
-		// Change current player to other player
 		this.changePlayer();
 	}
 }
