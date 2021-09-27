@@ -48,20 +48,17 @@ class Game {
 
 	// Create JS repr of board: array or rows, each row array of cells (board[y][x])
 	// Creates a 2D array of length and width with null at each value
-	makeBoard() {
+	makeBoard = () => {
 		this.board = [];
 		for (let row = 0; row < this.height; row++) {
 			this.board.push(Array.apply(null, { length: this.width }));
 		}
-	}
+	};
 
 	// Create top row (tr) of board to accept click events
 	createTopRow = () => {
 		const top = document.createElement('tr');
 		top.setAttribute('id', 'column-top');
-		// this.bindGameClick = this.handleClick.bind(this);
-		// // top.addEventListener('click', this.handleClick.bind(this));
-		// // top.addEventListener('click', this.bindGameClick);
 		top.addEventListener('click', this.handleClick);
 
 		// Set up the tds of tr and assign each td and id of the x position
@@ -74,7 +71,7 @@ class Game {
 	};
 
 	//create HTML representation of board: HTML table and row of column tops
-	makeHtmlBoard() {
+	makeHtmlBoard = () => {
 		this.htmlBoard.innerHTML = '';
 
 		this.htmlBoard.append(this.createTopRow());
@@ -93,37 +90,37 @@ class Game {
 		}
 		this.button.innerText = 'Reset Game';
 		this.footer.innerText = `${this.currPlayer.color} player's turn`;
-	}
+	};
 
 	// return y coord of next available grid space or null if column is filled
-	findSpotForCol(x) {
+	findSpotForCol = (x) => {
 		for (let y = this.height - 1; y >= 0; y--) {
 			if (!this.board[y][x]) return y;
 		}
 		return null;
-	}
+	};
 
-	createPiece() {
+	createPiece = () => {
 		const newPiece = document.createElement('div');
 		newPiece.classList.add('piece');
 		newPiece.style.backgroundColor = this.currPlayer.color;
 		return newPiece;
-	}
+	};
 
 	// place a piece in HTML table at passed coords. Set color based on player number
-	placeInHTMLTable(y, x) {
+	placeInHTMLTable = (y, x) => {
 		const square = document.getElementById(`${y}-${x}`);
 		square.append(this.createPiece());
-	}
+	};
 
 	// Alert player that game is over with passed msg
-	endGame(msg) {
+	endGame = (msg) => {
 		const top = document.querySelector('#column-top');
 		top.removeEventListener('click', this.handleClick);
 		document.body.classList.toggle('win-color');
 		document.body.classList.toggle('start-color');
 		document.querySelector('#footer').innerText = msg;
-	}
+	};
 
 	win(cells) {
 		// check array of 4 (y, x) array pairs (coords)
