@@ -6,10 +6,6 @@
  * 
  */
 
-const htmlBoard = document.querySelector('#board');
-const footer = document.querySelector('#footer');
-const button = document.querySelector('#reset');
-
 class Game {
 	constructor(p1, p2, htmlBoard, footer, button, height = 6, width = 7) {
 		// Check that colors entered are valid and unique
@@ -211,5 +207,8 @@ document.querySelector('#colors').addEventListener('submit', (e) => {
 	e.preventDefault();
 	let p1 = new Player(document.querySelector('#p1color').value.toLowerCase());
 	let p2 = new Player(document.querySelector('#p2color').value.toLowerCase());
+	const htmlBoard = document.querySelector('#board');
+	const footer = document.querySelector('#footer');
+	const button = document.querySelector('#reset');
 	new Game(p1, p2, htmlBoard, footer, button);
 });
