@@ -6,8 +6,19 @@
  * 
  */
 
+const DEFAULT_HEIGHT = 6;
+const DEFAULT_WIDTH = 7;
+
 class Game {
-	constructor(p1, p2, htmlBoard, footer, button, height = 6, width = 7) {
+	constructor(
+		p1,
+		p2,
+		htmlBoard,
+		footer,
+		button,
+		height = DEFAULT_HEIGHT,
+		width = DEFAULT_WIDTH
+	) {
 		// Check that colors entered are valid and unique
 		if (
 			Helper.isColor(p1.color) &&
