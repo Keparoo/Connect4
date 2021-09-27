@@ -33,8 +33,8 @@ class Game {
 			throw new Error('Invalid Color');
 		}
 
-		this.WIDTH = width; // board width
-		this.HEIGHT = height; // board height
+		this.width = width; // board width
+		this.height = height; // board height
 		this.currPlayer = this.p1; // active player: 1 or 2
 		this.board = []; // Javascript representation of board (board[y][x])
 		this.htmlBoard = htmlBoard; // HTML representation of board  (htmlBoard[y][x])
@@ -47,11 +47,11 @@ class Game {
 	}
 
 	//create JS repr of board: array or rows, each row array of cells (board[y][x])
+	// Creates a 2D array of WIDTH length and HEIGHT with null at each index
 	makeBoard() {
 		this.board = [];
-		for (let row = 0; row < this.HEIGHT; row++) {
-			// Creates an array of WIDTH length with undefined at each index
-			this.board.push(Array.apply(null, { length: this.WIDTH }));
+		for (let row = 0; row < this.height; row++) {
+			this.board.push(Array.apply(null, { length: this.width }));
 		}
 	}
 
@@ -63,7 +63,7 @@ class Game {
 		top.addEventListener('click', this.bindGameClick);
 
 		// Set up the tds of tr and assign each td and id of the x position
-		for (let x = 0; x < this.WIDTH; x++) {
+		for (let x = 0; x < this.width; x++) {
 			const headCell = document.createElement('td');
 			headCell.setAttribute('id', x);
 			top.append(headCell);
@@ -79,10 +79,10 @@ class Game {
 
 		// Create the HTML board for play as a table, each td having ids of x-y
 		// where x and y are the coordinate indexes
-		for (let y = 0; y < this.HEIGHT; y++) {
+		for (let y = 0; y < this.height; y++) {
 			const row = document.createElement('tr');
 
-			for (let x = 0; x < this.WIDTH; x++) {
+			for (let x = 0; x < this.width; x++) {
 				const cell = document.createElement('td');
 				cell.setAttribute('id', `${y}-${x}`);
 				row.append(cell);
@@ -95,7 +95,7 @@ class Game {
 
 	// return y coord of next available grid space or null if column is filled
 	findSpotForCol(x) {
-		for (let y = this.HEIGHT - 1; y >= 0; y--) {
+		for (let y = this.height - 1; y >= 0; y--) {
 			if (!this.board[y][x]) return y;
 		}
 		return null;
@@ -130,9 +130,9 @@ class Game {
 		return cells.every(
 			([ y, x ]) =>
 				y >= 0 &&
-				y < this.HEIGHT &&
+				y < this.height &&
 				x >= 0 &&
-				x < this.WIDTH &&
+				x < this.width &&
 				this.board[y][x] === this.currPlayer
 		);
 	}
@@ -141,8 +141,8 @@ class Game {
 	checkForWin() {
 		// loop through each square on the board, use each square as a starting
 		// point to check for 4 in a row
-		for (let y = 0; y < this.HEIGHT; y++) {
-			for (let x = 0; x < this.WIDTH; x++) {
+		for (let y = 0; y < this.height; y++) {
+			for (let x = 0; x < this.width; x++) {
 				// collect the 4 cells horizontally to right
 				let horiz = [ [ y, x ], [ y, x + 1 ], [ y, x + 2 ], [ y, x + 3 ] ];
 				// collect the 4 cells vertically down
