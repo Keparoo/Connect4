@@ -122,7 +122,7 @@ class Game {
 		document.querySelector('#footer').innerText = msg;
 	};
 
-	win(cells) {
+	win = (cells) => {
 		// check array of 4 (y, x) array pairs (coords)
 		// If the coordinates are valid (on the board)
 		// check to see if they are all the same color (player) if so return true
@@ -134,10 +134,10 @@ class Game {
 				x < this.width &&
 				this.board[y][x] === this.currPlayer
 		);
-	}
+	};
 
 	// checkForWin: check board cell-by-cell for "does a win start here?"
-	checkForWin() {
+	checkForWin = () => {
 		// loop through each square on the board, use each square as a starting
 		// point to check for 4 in a row
 		for (let y = 0; y < this.height; y++) {
@@ -172,7 +172,7 @@ class Game {
 				}
 			}
 		}
-	}
+	};
 
 	// Switch current player
 	changePlayer = () => {
