@@ -175,6 +175,7 @@ class Game {
 		}
 	}
 
+	// Switch current player
 	changePlayer = () => {
 		this.currPlayer === this.p1
 			? (this.currPlayer = this.p2)
@@ -187,14 +188,23 @@ class Game {
 		return this.board.every((row) => row.every((square) => square));
 	};
 
+	getCoordsToPlacePiece = (evt) => {
+		const x = evt.target.id;
+		const y = this.findSpotForCol(x);
+		console.log(x, y);
+		return [ x, y ];
+	};
+
 	// When square of top row is clicked, attempt to put piece in that column
 	handleClick(evt) {
-		const topRow = document.querySelector('#column-top');
-		// get x from ID of clicked cell
-		const x = +evt.target.id;
+		// // get x from ID of clicked cell
+		// const x = evt.target.id;
 
-		// get next spot in column (if none, ignore click)
-		const y = this.findSpotForCol(x);
+		// // get next spot in column (if none, ignore click)
+		// const y = this.findSpotForCol(x);
+		// if (y === null) return;
+
+		const [ x, y ] = this.getCoordsToPlacePiece(evt);
 		if (y === null) return;
 
 		// place piece in HTML board correspoding JS array representation
