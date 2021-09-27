@@ -114,12 +114,16 @@ class Game {
 		square.append(this.createPiece());
 	};
 
+	toggleBackgroundColor = () => {
+		document.body.classList.toggle('win-color');
+		document.body.classList.toggle('start-color');
+	};
+
 	// Alert player that game is over with passed msg
 	endGame = (msg) => {
 		const top = document.querySelector('#column-top');
 		top.removeEventListener('click', this.handleClick);
-		document.body.classList.toggle('win-color');
-		document.body.classList.toggle('start-color');
+		this.toggleBackgroundColor();
 		document.querySelector('#footer').innerText = msg;
 	};
 
@@ -188,7 +192,6 @@ class Game {
 		// return this.board.every((row) => row.every((square) => square));
 		let result = true;
 		for (let x = 0; x < this.width; x++) {
-			console.log(this.board[0][x]);
 			if (!this.board[0][x]) {
 				result = false;
 				break;
