@@ -116,23 +116,22 @@ class Game {
 		document.querySelector('#footer').innerText = msg;
 	}
 
+	win(cells) {
+		// check array of 4 (y, x) array pairs (coords)
+		// If the coordinates are valid (on the board)
+		// check to see if they are all the same color (player) if so return true
+		return cells.every(
+			([ y, x ]) =>
+				y >= 0 &&
+				y < this.HEIGHT &&
+				x >= 0 &&
+				x < this.WIDTH &&
+				this.board[y][x] === this.currPlayer
+		);
+	}
+
 	// checkForWin: check board cell-by-cell for "does a win start here?"
 	checkForWin() {
-		const _win = (cells) => {
-			// check array of 4 (y, x) array pairs (coords)
-			// If the coordinates are valid (on the board)
-			// check to see if they are all the same color (player) if so return true
-			return cells.every(
-				([ y, x ]) =>
-					y >= 0 &&
-					y < this.HEIGHT &&
-					x >= 0 &&
-					x < this.WIDTH &&
-					this.board[y][x] === this.currPlayer
-			);
-		};
-		this.bindWin = _win.bind(this);
-
 		// loop through each square on the board, use each square as a starting
 		// point to check for 4 in a row
 		for (let y = 0; y < this.HEIGHT; y++) {
@@ -158,10 +157,10 @@ class Game {
 
 				// Check if any of the 4-sets of 4-adjacent squares are the same color
 				if (
-					this.bindWin(horiz) ||
-					this.bindWin(vert) ||
-					this.bindWin(diagDR) ||
-					this.bindWin(diagDL)
+					this.win(horiz) ||
+					this.win(vert) ||
+					this.win(diagDR) ||
+					this.win(diagDL)
 				) {
 					return true;
 				}
