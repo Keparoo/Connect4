@@ -1,1 +1,3 @@
 connect-four-solution/
+.vercel
+node_modules
